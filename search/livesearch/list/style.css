@@ -8,7 +8,7 @@
 
 .clerk-instant-search {
     overflow-y: auto;
-    height: auto;
+    height: 75vh;
     width: 100%;
     margin: 0.2em auto;
     background-color: white;

@@ -22,7 +22,7 @@
 
 .clerk-instant-search {
     overflow-y: auto;
-    height: auto;
+    height: 75vh;
     width: 100%;
     min-width: 320px;
     max-width: 1200px;
