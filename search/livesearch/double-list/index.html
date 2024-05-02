@@ -2,6 +2,7 @@
 {% assign translate_show_more = 'More Results' %}
 {% assign translate_categories = 'Categories'%}
 {% assign translate_pages = "Pages"%}
+{% assign translate_sugggestions = 'Suggestions' %}
 {% assign translate_no_results = 'No results for '%}
 {% assign currency_symbol_before = ''%}
 {% assign currency_symbol_after = 'DKK'%}
@@ -84,12 +85,10 @@
     </div>
     {% endif %}
 
-    {% comment %}
-
     {% if suggestions.length > 0 %}
     <div class="clerk-instant-search-suggestions">
         <div style="margin-top: 0.8rem" class="clerk-instant-search-headline translate_me">
-            Suggestions</div>
+            {{translate_sugggestions}}</div>
         {% for suggestion in suggestions %}
         {% if suggestion != query %}
         <a class="clerk-instant-search-category-item" href="/result-search/?query={{suggestion}}">
@@ -99,7 +98,6 @@
         {% endfor %}
     </div>
     {% endif %}
-    {% endcomment %}
 
 </div>
 {% endif %}
