@@ -6,6 +6,7 @@
 {% assign translate_no_results = 'No results for '%}
 {% assign currency_symbol_before = ''%}
 {% assign currency_symbol_after = 'DKK'%}
+{% assign search_page_url = '' %}
 
 {% assign show_more_limit = products.length %}
 {% assign upper_limit = 6 %}
@@ -50,7 +51,7 @@
     {% endif %}
     {% if products.length > 0 %}
     <div class="clerk-instant-search-footer replace_link">
-        <a href="/search?q={{query}}" class="clerk-instant-search-more-results translate_me">
+        <a href="{{search_page_url}}{{query}}" class="clerk-instant-search-more-results translate_me">
             {{translate_show_more}}</a>
     </div>
     {% endif %}
@@ -91,7 +92,7 @@
             {{translate_sugggestions}}</div>
         {% for suggestion in suggestions %}
         {% if suggestion != query %}
-        <a class="clerk-instant-search-category-item" href="/result-search/?query={{suggestion}}">
+        <a class="clerk-instant-search-category-item" href="{{search_page_url}}{{suggestion}}">
             {{suggestion}}
         </a>
         {% endif %}
