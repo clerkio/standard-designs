@@ -90,6 +90,7 @@
     <div class="clerk-instant-search-suggestions">
         <div style="margin-top: 0.8rem" class="clerk-instant-search-headline translate_me">
             {{translate_sugggestions}}</div>
+        <hr>
         {% for suggestion in suggestions %}
         {% if suggestion != query %}
         <a class="clerk-instant-search-category-item" href="{{search_page_url}}{{suggestion}}">
