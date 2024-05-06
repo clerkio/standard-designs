@@ -1,101 +1,106 @@
+<!-- VARIABLES -->
+<!-- 
+    SEARCH PATH TO SEARCH PAGE
+    change this URL to set the path to the search page. 
+-->
+{% assign clerk_search_path = "/search?q=" %}
+<!-- END VARIABLES -->
+
 <div class="clerk-instant-search">
-    <div class="clerk-instant-search-grid">
-        {% if (products.length + categories.length + pages.length) == 0 %}
-        <!-- NO RESULTS FALLBACK -->
-        <div class="clerk-instant-search-no-results">
-          No results for: <b>{{ query }}</b>
-        </div>
-        {% endif %} 
-        {% if products.length > 0 %}
-        <div class="clerk-instant-search-col clerk-col-1">
-            <div class="clerk-instant-search-products">
-                <div class="clerk-instant-search-title">Products</div>
-                <div class="clerk-instant-search-product-grid">
-                    {% for item in products %} {% assign currency_symbol = '€' %}
-                    <div class="clerk-instant-search-product clerk-instant-search-key-selectable">
-                        <!-- PRODUCT INFORMATION -->
-                        <a href="{{item.url}}" class="clerk-instant-search-link">
-                            <img class="clerk-instant-search-product-image" src="{{ item.image }}" alt="{{ item.name }}"/> 
-                            <div>
-                                <div class="clerk-instant-search-product-brand">{{item.brand}}</div>
-                                <div class="clerk-instant-search-product-name">{{ item.name | highlight query }}</div>
-                                {% if item.price < item.list_price %}
-                                <div class="clerk-instant-search-product-price">{{ currency_symbol }} {{ item.price | money_eu }}</div>
-                                <div class="clerk-instant-search-product-list-price">{{ currency_symbol }} {{ item.list_price | money_eu }}</div>
-                                {% else %}
-                                <div class="clerk-instant-search-product-price">{{ currency_symbol }} {{ item.price | money_eu }}</div>
-                                {% endif %}
-                            </div>
-                        </a>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% if hits > products.length %}
-            <div class="clerk-instant-search-more-results-wrapper">
-                <a class="clerk-instant-search-more-results" href="/module/clerk/search?search_query={{ query}}">See more results</a>
-            </div>
-            {% endif %}
-        </div>
-        {% endif %} 
-        {% if (suggestions.length + categories.length) > 0 %}
-        <div class="clerk-instant-search-col clerk-col-2">
-            <div class="clerk-instant-search-suggestions">
-                {% if suggestions.length > 0 %}
-                <div class="clerk-instant-search-title">Suggestions</div>
-                <div class="clerk_instant_search_suggestions_wrap">
-                    {% for suggestion in suggestions %} 
-                    <div class="clerk-instant-search-category clerk-instant-search-key-selectable">
-                        <a class="clerk_instant_search_link" href="/module/clerk/search?search_query={{suggestion}}">{{ suggestion | highlight query }}</a>
-                    </div>
-                    {% endfor %}
-                </div>
-                {% endif %}
-            </div>
-            {% if categories.length > 0 %}
-            <div class="clerk-instant-search-title">Categories</div>
-            <div class="clerk-instant-search-categories">
-                {% for category in categories %}
-                <div class="clerk-instant-search-category clerk-instant-search-key-selectable">
-                    <a href="{{category.url}}" class="clerk_instant_search_link">{{ category.name | highlight query }}</a>
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %} 
-            {% if pages.length > 0 %}
-            <div class="clerk-instant-search-title">Related Content</div>
-            <div class="clerk-instant-search-pages">
-                {% for page in pages %}
-                <div class="clerk-instant-search-category clerk-instant-search-key-selectable">
-                    <a href="{{ page.url }}" class="clerk_instant_search_link">{{ page.title | highlight query }}</a>
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-        {% endif %}
-    </div>
+	<div class="clerk-instant-search-grid">
+		{% if products.length == 0 and categories.length == 0 and pages.length == 0 %}
+		<!-- NO RESULTS FALLBACK -->
+		<div class="clerk-instant-search-no-results">No results for: <b>{{ query }}</b></div>
+		{% endif %} {% if products.length > 0 %}
+		<div class="clerk-instant-search-col clerk-col-1">
+			<div class="clerk-instant-search-products">
+				<div class="clerk-instant-search-title">Products</div>
+				<div class="clerk-instant-search-product-grid">
+					{% for item in products %} {% assign currency_symbol = '€' %}
+					<div class="clerk-instant-search-product clerk-instant-search-key-selectable">
+						<!-- PRODUCT INFORMATION -->
+						<a href="{{item.url}}" class="clerk-instant-search-link">
+							<img class="clerk-instant-search-product-image" src="{{ item.image }}" alt="{{ item.name }}" />
+							<div>
+								<div class="clerk-instant-search-product-name">{{ item.name | highlight query }}</div>
+								{% if item.price < item.list_price %}
+								<div class="clerk-instant-search-product-price">{{ currency_symbol }} {{ item.price | money_eu }}</div>
+								<div class="clerk-instant-search-product-list-price">{{ currency_symbol }} {{ item.list_price | money_eu }}</div>
+								{% else %}
+								<div class="clerk-instant-search-product-price">{{ currency_symbol }} {{ item.price | money_eu }}</div>
+								{% endif %}
+							</div>
+						</a>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			{% if hits > products.length %}
+			<div class="clerk-instant-search-more-results-wrapper">
+				<a class="clerk-instant-search-more-results" href="{{ clerk_search_path }}{{ query }}">See more results</a>
+			</div>
+			{% endif %}
+		</div>
+		{% endif %} {% if (suggestions.length + categories.length) > 0 %}
+		<div class="clerk-instant-search-col clerk-col-2">
+			{% if suggestions.length > 0 %}
+			<div class="clerk-instant-search-suggestions">
+				<div class="clerk-instant-search-title">Suggestions</div>
+				<div class="clerk_instant_search_suggestions_wrap">
+					{% for suggestion in suggestions %}
+					<div class="clerk-instant-search-category clerk-instant-search-key-selectable">
+						<a class="clerk_instant_search_link" href="{{ clerk_search_path }}{{suggestion}}">{{ suggestion | highlight query }}</a>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			{% endif %} {% if categories.length > 0 %}
+			<div class="clerk-instant-search-categories">
+				<div class="clerk-instant-search-title">Categories</div>
+				<div class="clerk_instant_search_suggestions_wrap">
+					{% for category in categories %}
+					<div class="clerk-instant-search-category clerk-instant-search-key-selectable">
+						<a href="{{category.url}}" class="clerk_instant_search_link">{{ category.name | highlight query }}</a>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			{% endif %} {% if pages.length > 0 %}
+			<div class="clerk-instant-search-pages">
+				<div class="clerk-instant-search-title">Related Content</div>
+				<div class="clerk_instant_search_suggestions_wrap">
+					{% for page in pages %}
+					<div class="clerk-instant-search-category clerk-instant-search-key-selectable">
+						<a href="{{ page.url }}" class="clerk_instant_search_link">{{ page.title | highlight query }}</a>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+		{% endif %}
+	</div>
 </div>
 
 <script>
-    // This script ensures that the Instant Search is always placed right under the input field when scrolling and resizing the viewport.
-    // If you do not use a sticky header, then this is not necessary.
-    // You should also remove .clerk-instant-search-visible { position: fixed !important; } from the the CSS below if this is your use-case.
+	// This script ensures that the Instant Search is always placed right under the input field when scrolling and resizing the viewport.
+	// If you do not use a sticky header, then this is not necessary.
+	// You should also remove .clerk-instant-search-visible { position: fixed !important; } from the the CSS below if this is your use-case.
 
-    if (!clerkFloatingSearchPos) {
-        var clerkFloatingSearchPos = true;
-        sel = document.querySelector("#{{content.id}}").dataset.instantSearch;
-        xVal = document.querySelector(sel).getBoundingClientRect().bottom;
-        document.querySelector("#{{content.id}}").style.top = `${xVal}px`;
-        document.querySelector("#{{content.id}}").style.position = `fixed`;
-        window.addEventListener("resize", function () {
-            xVal = document.querySelector(sel).getBoundingClientRect().bottom;
-            document.querySelector("#{{content.id}}").style.top = `${xVal}px`;
-        });
-        window.addEventListener("scroll", function () {
-            xVal = document.querySelector(sel).getBoundingClientRect().bottom;
-            document.querySelector("#{{content.id}}").style.top = `${xVal}px`;
-            document.querySelector("#{{content.id}}").style.position = `fixed`;
-        });
-    }
+	   if (!clerkFloatingSearchPos) {
+	       var clerkFloatingSearchPos = true;
+	       sel = document.querySelector("#{{content.id}}").dataset.instantSearch;
+	       xVal = document.querySelector(sel).getBoundingClientRect().bottom;
+	       document.querySelector("#{{content.id}}").style.top = `${xVal}px`;
+	       document.querySelector("#{{content.id}}").style.position = `fixed`;
+	       window.addEventListener("resize", function () {
+	           xVal = document.querySelector(sel).getBoundingClientRect().bottom;
+	           document.querySelector("#{{content.id}}").style.top = `${xVal}px`;
+	       });
+	       window.addEventListener("scroll", function () {
+	           xVal = document.querySelector(sel).getBoundingClientRect().bottom;
+	           document.querySelector("#{{content.id}}").style.top = `${xVal}px`;
+	           document.querySelector("#{{content.id}}").style.position = `fixed`;
+	       });
+	   }
 </script>
