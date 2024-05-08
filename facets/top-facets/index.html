@@ -1,3 +1,14 @@
+{% assign hidden_categories = [] %}
+
+{% assign translate_sort_by = 'Sort by' %}
+{% assign translate_filter = 'Filter' %}
+{% assign translate_bestsellers = 'Bestsellers' %}
+{% assign translate_asc_name = 'Alphabetical, A-Z' %}
+{% assign translate_desc_name = 'Alphabetical, Z-A' %}
+{% assign translate_asc_price = 'Price, low to high' %}
+{% assign translate_desc_price = 'Price, high to low' %}
+
+
 <div class="clerk-facets-wrapper">
     <div class="clerk-facets">
         {% assign fcount = facets.length %}
@@ -20,18 +31,26 @@
 
                 <div class="clerk-facet-group-facets {% if facet_group.facets.length > 10 %} pad-left {% endif %}">
                     {% for facet in facet_group.facets %}
+
+                    {% assign show_category == true %}
+                    {% if hidden_categories contains facet.value %}
+                    {% assign show_category == false %}
+                    {% endif %}
+
+                    {% if show_category %}
+
                     <div class="clerk-facet 
                             {% if facet.selected %}
                             clerk-facet-selected
                             {% endif %}" data-facet="{{ facet_group.group }}" data-value="{{ facet.value }}"
                         data-min="{{ facet.min }}" data-max="{{ facet.max }}">
-                        <div class="clerk-facet-count">
-                            {{ facet.count }}
-                        </div>
+
                         <div class="clerk-facet-name">
                             {{ facet.name }}
                         </div>
+                        <div class="clerk-facet-count"> {{ facet.count}} </div>
                     </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
 
@@ -48,14 +67,12 @@
     </div>
     <div class="clerk_sort_select_wrap">
         <select class="clerk_sort_select" onchange="clerkSorting(this.options[this.selectedIndex].value, event);">
-            <option value="" disabled selected>Ordina per:</option>
-            <option value="null_null">Migliori vendite</option>
-            <option value="asc_name">Nome (A - Z)</option>
-            <option value="desc_name">Nome (Z - A)</option>
-            <option value="asc_price">Prezzo (basso - alto)</option>
-            <option value="desc_price">Prezzo (alto - basso)</option>
-            <option value="asc_age">Più recenti</option>
-            <option value="desc_age">Più vecchi</option>
+            <option value="" disabled selected>{{translate_sort_by}}:</option>
+            <option value="null_null">{{translate_bestsellers}}</option>
+            <option value="asc_name">{{translate_asc_name}}</option>
+            <option value="desc_name">{{translate_desc_name}}</option>
+            <option value="asc_price">{{translate_asc_price}}</option>
+            <option value="desc_price">{{translate_desc_price}}</option>
         </select>
     </div>
 </div>
