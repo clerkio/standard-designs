@@ -48,7 +48,7 @@
 .clerk_facets_toggle_headline {
 	color: #111827;
 	line-height: 1.25rem;
-	font-size: 0.875rem;
+	font-size: 1rem;
 }
 
 .clerk_facets_toggle_icons_wrapper {
@@ -82,11 +82,12 @@
 
 .clerk-range-selected-range {
 	background-color: #111827 !important;
+	display: block!important;
 }
 
 .clerk_facet_option_name {
 	overflow: hidden;
-	font-size: 0.875rem;
+	font-size: 1rem;
 	text-overflow: ellipsis;
 	width: 89%;
 	color: #111827;
