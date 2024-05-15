@@ -1,3 +1,6 @@
+{% assign currency_symbol_before = "€" %}
+{% assign currency_symbol_after = "" %}
+
 {% if products.length > 8 %}
 <div class="clerk-wrapper">
     <div class="clerk-headline-wrapper">
@@ -5,11 +8,10 @@
     </div>
     <div class="clerk-slider-wrapper">
         <div class="clerk-slider">
-            <!-- Change this to change the currency symbol -->
-            {% for item in products %} {% assign currency_symbol = "€" %}
+            {% for item in products %}
             <div class="clerk-slider-content">
-                <!-- START SLIDER CONTENT -->
-                <!-- END SLIDER CONTENT -->
+                <!-- START PRODUCT CARD -->
+                <!-- END PRODUCT CARD -->
             </div>
             {% endfor %}
         </div>
