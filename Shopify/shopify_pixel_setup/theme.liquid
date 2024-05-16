@@ -12,8 +12,22 @@
   });
 
   document.addEventListener('DOMContentLoaded', (e) => {
-    window.Shopify.analytics.publish("clerk_pixel_context", {
-      localeApiKey: publicKey,
-    });
-  });
+	;(async function fetchVisitorId() {
+		try {
+			const response = await fetch(`https://api.clerk.io/v2/misc/visitor_id?key=${publicKey}&visitor=auto`)
+			const data = await response.json()
+			visitorId = data.visitor
+			Clerk('config', {
+				visitor: visitorId,
+			})
+		} catch (error) {
+			console.error('Error:', error)
+		} finally {
+			window.Shopify.analytics.publish('clerk_pixel_context', {
+				localeApiKey: publicKey,
+				visitor: visitorId,
+			})
+		}
+	})()
+})
 </script>
