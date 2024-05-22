@@ -2,26 +2,26 @@
 
 ## Previews
 
-### search and facets
-![Desktop](/facets/img/search_and_facets-desktop.png "Desktop")
-![Mobile](/facets/img/search_and_facets-mobile.png "Mobile")
-
-### side-facets
-![Desktop](/facets/img/side-facets-desktop.png "Desktop")
-![Mobile](/facets/img/side-facets-mobile.png "Mobile")
-
-### side-facets-basic
-"kinda broken" - Daan 2024
-![Desktop](/facets/img/side-facets-basic-desktop.png "Desktop")
-![Mobile](/facets/img/side-facets-basic-mobile.png "Mobile")
-
-### side-facets-new
-![Desktop](/facets/img/side-facets-new-desktop.png "Desktop")
-![Mobile](/facets/img/side-facets-new-mobile.png "Mobile")
+### side-facet-drawer
+![Desktop](/search-and-facets/facets/img/search_and_facets-desktop.png "Desktop")
+![Mobile](/search-and-facets/facets/img/search_and_facets-mobile.png "Mobile")
 
 ### top-facets
-![Desktop](/facets/img/top-facets-desktop.png "Desktop")
-![Mobile](/facets/img/top-facets-mobile.png "Mobile")
+![Desktop](/search-and-facets/facets/img/top-facets-desktop.png "Desktop")
+![Mobile](/search-and-facets/facets/img/top-facets-mobile.png "Mobile")
+
+### side-facets (deprecated)
+![Desktop](/search-and-facets/facets/img/side-facets-desktop.png "Desktop")
+![Mobile](/search-and-facets/facets/img/side-facets-mobile.png "Mobile")
+
+### side-facets-basic (deprecated)
+"kinda broken" - Daan 2024
+![Desktop](/search-and-facets/facets/img/side-facets-basic-desktop.png "Desktop")
+![Mobile](/search-and-facets/facets/img/side-facets-basic-mobile.png "Mobile")
+
+### side-facets-new (deprecated)
+![Desktop](/search-and-facets/facets/img/side-facets-new-desktop.png "Desktop")
+![Mobile](/search-and-facets/facets/img/side-facets-new-mobile.png "Mobile")
 
 ## For price range slider
 
