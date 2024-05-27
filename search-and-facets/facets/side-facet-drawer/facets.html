@@ -5,12 +5,12 @@
 <div class="clerk_facets_container">
       <div class="clerk_facets_wrapper clerk_sort_wrapper">
         <select class="clerk_sort_toggle clerk_sort_select" onchange="clerkSorting(this.options[ this.selectedIndex ].value, event);">
-            <option class="clerk_sort_default" value="" disabled selected>Sorter etter:</option>
+            <option class="clerk_sort_default" value="" disabled selected>Sorter efter:</option>
             <option value="null_null">Bestselgere</option>
             <option value="asc_name">Navn (A - Å)</option>
             <option value="desc_name">Navn (Å - A)</option>
-            <option value="asc_price">Pris (lav til høy)</option>
-            <option value="desc_price">Pris (høy til lav)</option>
+            <option value="asc_price">Pris (lav til høj)</option>
+            <option value="desc_price">Pris (høj til lav)</option>
         </select>
       </div>
   {% for facet_group in facets %}
