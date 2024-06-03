@@ -1,3 +1,4 @@
+// Start of Clerk.io E-commerce Personalisation tool - www.clerk.io 
 analytics.subscribe('clerk_pixel_context', (event) => {
 	browser.localStorage.setItem('clerkPixelContext', JSON.stringify(event.customData))
 })
@@ -16,3 +17,4 @@ analytics.subscribe('checkout_completed', async (event) => {
 		}),
 	})
 })
+// End of Clerk.io E-commerce Personalisation tool - www.clerk.io
