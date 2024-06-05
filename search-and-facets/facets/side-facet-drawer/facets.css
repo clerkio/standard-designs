@@ -21,7 +21,7 @@
 	padding: 0 1.6rem;
 }
 
-.clerk_facets_wrapper {
+.clerk_facets_wrapper:not(:first-child) {
 	border-bottom: 1px solid #d1d5db;
 	padding: 1rem 0;
 }

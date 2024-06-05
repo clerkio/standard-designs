@@ -32,7 +32,6 @@
 		display: flex;
 		flex-direction: row;
 		position: sticky;
-		top: 111px;
 		z-index: 50;
 		background: #fff;
 		cursor: pointer;
@@ -54,12 +53,4 @@
 	.clerk-grid-wrapper {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
-}
-
-h1.entry-title.title {
-	text-transform: capitalize !important;
-}
-
-.wd-carousel-container {
-	display: none !important;
 }
