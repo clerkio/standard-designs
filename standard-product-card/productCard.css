@@ -1,0 +1,79 @@
+.clerk-headline-wrapper {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* 
+  * This will determine  how many products are being shown in the slider
+  */
+.clerk-slider-item {
+  width: calc(25% - 0px);
+}
+@media screen and (max-width: 768px) {
+  .clerk-slider-item {
+    width: calc(50%);
+  }
+}
+@media screen and (max-width: 480px) {
+  .clerk-slider-item {
+    width: calc(50%);
+  }
+  .clerk_product-card {
+    /*set the height of card for mobile */
+    height: unset !important;
+  }
+}
+
+/*********************************************
+  *
+  * CUSTOM CSS BELOW HERE 
+  *
+  *********************************************/
+.clerk_discount-badge {
+  width: fit-content;
+  min-height: 2em;
+  min-width: 2em;
+  line-height: 2em;
+  border-radius: 5px;
+  padding: 2px 10px 2px 10px;
+  margin: 10px 10px 10px;
+}
+.clerk_badge-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.clerk_img-wrapper {
+  display: flex;
+  flex-grow: 4;
+  padding: 10px;
+  margin: auto;
+}
+.clerk_price-wrapper {
+  display: flex;
+  padding: 0 10px;
+}
+.clerk_list-price {
+  color: #909090;
+}
+.clerk_price {
+  color: #000;
+  flex-grow: 2;
+}
+.clerk_title {
+  padding: 10px;
+  flex-grow: 1;
+}
+
+.clerk_product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /*set the height of card accordingly */
+  height: 516px;
+}
+.clerk_product-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}

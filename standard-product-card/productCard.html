@@ -1,0 +1,38 @@
+{% assign currency_symbol_before = "€" %} {% assign currency_symbol_after = ""
+%} {% if products.length > 8 %}
+<div class="clerk-wrapper page-width">
+  <div class="clerk-headline-wrapper">
+    <h2 class="clerk-headline">{{ headline }}</h2>
+  </div>
+  <div class="clerk-slider-wrapper">
+    <div class="clerk-slider">
+      {% for item in products %}
+      <div class="clerk-slider-content">
+        <!-- START PRODUCT CARD -->
+        <div class="clerk_product-card">
+          <div class="clerk_img-wrapper">
+            <a href="{{ item.url }}"
+              ><img class="clerk_image" src="{{ item.image }}"
+            /></a>
+          </div>
+          <div class="clerk_product-info">
+            <div class="clerk_title">{{ item.name }}</div>
+            <div class="clerk_price-wrapper">
+              {%if item.on_sale%}
+              <div class="clerk_list-price">
+                <del>{{ currency_symbol }} {{item.list_price}} </del>
+              </div>
+              {%endif%}
+              <div class="clerk_price">
+                {{ currency_symbol }} {{item.price }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END PRODUCT CARD -->
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
