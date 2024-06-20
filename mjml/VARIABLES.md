@@ -1,43 +1,43 @@
-# Template Variables
+# MJML Template Variables
 
-This document provides an overview of the variables used in the template.
+This document provides an overview of the variables used in the MJML template
 
 ## Layout Distribution Variables
 
-- `__design__items_per_row`: Number of items per row. Default is 2.
-- `__design__one`: Integer value 1.
+- `__design__items_per_row`: Number of items per row Default is 2
+- `__design__one`: Default value 1
 
 ## Styling Variables
 
 ### Column Widths
 
-- `__design__body_w_max`: Maximum body width. Default is '600px'.
-- `__design__col_w_large`: Large column width. Default is '600px'.
-- `__design__col_w_medium`: Medium column width. Default is '400px'.
-- `__design__col_w_small`: Small column width. Default is '200px'.
-- `__design__col_w_rel_100`: Relative column width. Default is '100%'.
-- `__design__col_w_rel_75`: Relative column width. Default is '75%'.
-- `__design__col_w_rel_50`: Relative column width. Default is '50%'.
-- `__design__col_w_rel_25`: Relative column width. Default is '25%'.
+- `__design__body_w_max`: '600px'
+- `__design__col_w_large`: '600px'
+- `__design__col_w_medium`: '400px'
+- `__design__col_w_small`: '200px'
+- `__design__col_w_rel_100`: '100%'
+- `__design__col_w_rel_75`: '75%'
+- `__design__col_w_rel_50`: '50%'
+- `__design__col_w_rel_25`: '25%'
 
 ### Padding
 
-- `__design__pad_30`: Padding size. Default is '30px'.
-- `__design__pad_25`: Padding size. Default is '25px'.
-- `__design__pad_20`: Padding size. Default is '20px'.
-- `__design__pad_15`: Padding size. Default is '15px'.
-- `__design__pad_10`: Padding size. Default is '10px'.
-- `__design__pad_5`: Padding size. Default is '5px'.
-- `__design__pad_0`: No padding. Default is '0px'.
+- `__design__pad_30`: '30px'
+- `__design__pad_25`: '25px'
+- `__design__pad_20`: '20px'
+- `__design__pad_15`: '15px'
+- `__design__pad_10`: '10px'
+- `__design__pad_5`: '5px'
+- `__design__pad_0`: '0px'
 
 ### Image Widths
 
-- `__design__img_w_large`: Large image width. Default is '400px'.
-- `__design__img_w_medium`: Medium image width. Default is '300px'.
-- `__design__img_w_small`: Small image width. Default is '200px'.
-- `__design__img_w_smallish`: Smallish image width. Default is '170px'.
-- `__design__img_w_thumb`: Thumbnail image width. Default is '70px'.
-- `__design__img_w_swatch`: Swatch image width. Default is '40px'.
+- `__design__img_w_large`: '400px'
+- `__design__img_w_medium`: '300px'
+- `__design__img_w_small`: '200px'
+- `__design__img_w_smallish`: '170px'
+- `__design__img_w_thumb`: '70px'
+- `__design__img_w_swatch`: '40px'
 
 ### Font Size 
 
@@ -105,27 +105,27 @@ This document provides an overview of the variables used in the template.
 
 ### Shop 
 
-- `__design__shop_title`: ''
-- `__design__shop_domain`: ''
-- `__design__shop_privacy_policy`: ''
+- `__design__shop_title`: 'Clerk.io'
+- `__design__shop_domain`: 'https://clerk.io/'
+- `__design__shop_privacy_policy`: 'https://www.clerk.io/privacy'
 - `__design__shop_rel_url_home`: '/home'
 - `__design__shop_rel_url_blog`: '/blog'
 - `__design__shop_rel_url_store`: '/store'
 
 ### API Key 
 
-- `__design__api_key`: ''
+- `__design__api_key`:
 
 ### Social Media
 
-- `__design__social_facebook_url`: ''
-- `__design__social_youtube_url`: ''
-- `__design__social_instagram_url`: ''
-- `__design__social_twitter_url`: ''
-- `__design__social_google_url`: ''
-- `__design__social_pinterest_url`: ''
-- `__design__social_tumblr_url`: ''
-- `__design__social_linkedin_url`: ''
+- `__design__social_facebook_url` 
+- `__design__social_youtube_url`
+- `__design__social_instagram_url`
+- `__design__social_twitter_url`
+- `__design__social_google_url`
+- `__design__social_pinterest_url`
+- `__design__social_tumblr_url`
+- `__design__social_linkedin_url`
 
 ### Input Variables
 
