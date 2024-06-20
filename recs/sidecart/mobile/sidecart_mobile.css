@@ -1,0 +1,23 @@
+.clerk-slider-content-mobile.clerk-slider-item {
+  /* 
+    2 items per row - 
+    If flex-direction for .clerk-item-wrapper is set to row
+    width should be set to 100%
+  */
+  width: 50% !important; 
+}
+
+.clerk-item-wrapper {
+  display: flex;
+  /* Can be changed to have one flat item */
+  flex-direction: column; 
+  justify-content: center;
+  gap: 10px;
+}
+
+.clerk-side-item-image {
+  margin: 0 auto;
+  width: 100%;
+  max-height: 10rem;
+  object-fit: contain;
+}
