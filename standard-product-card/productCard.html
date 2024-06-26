@@ -1,13 +1,4 @@
-{% assign currency_symbol_before = "€" %} {% assign currency_symbol_after = ""
-%} {% if products.length > 8 %}
-<div class="clerk-wrapper page-width">
-  <div class="clerk-headline-wrapper">
-    <h2 class="clerk-headline">{{ headline }}</h2>
-  </div>
-  <div class="clerk-slider-wrapper">
-    <div class="clerk-slider">
-      {% for item in products %}
-      <div class="clerk-slider-content">
+
         <!-- START PRODUCT CARD -->
         <div class="clerk_product-card">
           <div class="clerk_badge-wrapper">
@@ -35,11 +26,7 @@
               </div>
             </div>
           </div>
+          <!--eventually add ATC button here-->
         </div>
         <!-- END PRODUCT CARD -->
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</div>
-{% endif %}
+    
