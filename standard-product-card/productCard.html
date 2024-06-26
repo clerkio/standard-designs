@@ -10,6 +10,13 @@
       <div class="clerk-slider-content">
         <!-- START PRODUCT CARD -->
         <div class="clerk_product-card">
+          <div class="clerk_badge-wrapper">
+            {%if item.on_sale%} 
+            <span class="clerk_discount-badge">
+              Spar {{(item.list_price-item.price)/item.list_price * 100 | round}}%
+            </span>  
+            {%endif%}</div>
+          </div>
           <div class="clerk_img-wrapper">
             <a href="{{ item.url }}"
               ><img class="clerk_image" src="{{ item.image }}"
