@@ -29,6 +29,12 @@
   * CUSTOM CSS BELOW HERE 
   *
   *********************************************/
+.clerk_product-card {
+  display: flex;
+  flex-direction: column;
+  /*set the height of card accordingly */
+  height: 18.75rem;
+}
 .clerk_discount-badge {
   width: fit-content;
   min-height: 2em;
@@ -44,9 +50,12 @@
 }
 .clerk_img-wrapper {
   display: flex;
-  flex-grow: 4;
+  flex-grow: 2;
   padding: 10px;
-  margin: auto;
+}
+.clerk_image {
+  width: 100%;
+  height: auto;
 }
 .clerk_price-wrapper {
   display: flex;
@@ -57,20 +66,13 @@
 }
 .clerk_price {
   color: #000;
-  flex-grow: 2;
+  flex-grow: 1;
 }
 .clerk_title {
   padding: 10px;
   flex-grow: 1;
 }
 
-.clerk_product-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  /*set the height of card accordingly */
-  height: 516px;
-}
 .clerk_product-info {
   display: flex;
   flex-direction: column;
