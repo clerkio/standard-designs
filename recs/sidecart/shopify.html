@@ -1,5 +1,9 @@
 <!-- start Clerk.io E-commerce Personalisation tool - www.clerk.io -->
-<span class="clerk_m cart-others-also-bought" style="position: absolute; transform: translate(-280px, 0px); min-height: 290px; opacity: 0" id="" data-template="@cart-others-also-bought" data-products="[{% for line_item in cart.items %}{% if forloop.index0 > 0 %}, {% endif %}{{ line_item.product.id }}{% endfor %}]"></span>
+<span class="clerk_m clerk-sidecart" style="position: absolute; transform: translate(-280px, 0px); min-height: 290px; opacity: 0" id="" data-template="@cart-others-also-bought" data-products="[{% for line_item in cart.items %}{% if forloop.index0 > 0 %}, {% endif %}{{ line_item.product.id }}{% endfor %}]"></span>
+
+<!-- START MOBILE CART -- INSERT THIS AT THE BOTTOM OF THE CART DRAWER ON MOBILE -->
+<span class="clerk_mobile clerk-sidecart" data-template="@sidecart-mobile" data-products="[{% for line_item in cart.items %}{% if forloop.index0 > 0 %}, {% endif %}{{ line_item.product.id }}{% endfor %}]"></span>
+<!-- END MOBILE CART -->
 <style>
     #cart-others-also-bought {
         transition: opacity 0.5s ease-in-out;
@@ -13,7 +17,12 @@
 
     let cartFetched = false;
     let previousitemsID = [];
-    const clerk_element = document.querySelector(".cart-others-also-bought");
+    const clerk_element = document.querySelectorAll('.clerk-sidecart')
+    
+    // Change these depending on the class names of the cart drawer
+    const targetNodeClasses = "drawer drawer--right is-transitioning drawer--is-open";
+    const sideCartOpen = "drawer drawer--right drawer--is-open";
+    const sideCartClosed = "drawer drawer--right";
 
     // Function to fetch cart data
     async function fetchCartData() {
@@ -31,13 +40,22 @@
     const callback = async (mutationList, observer) => {
         for (const mutation of mutationList) {
             if (mutation.type === "attributes") {
-                if (targetNode.className == "drawer drawer--right is-transitioning drawer--is-open" && !cartFetched) {
+                if (targetNode.className == targetNodeClasses && !cartFetched) {
                     cartFetched = true;
                     try {
                         const itemsID = await fetchCartData();
-                        if (JSON.stringify(previousitemsID) != JSON.stringify(itemsID)) {
-                            await Clerk("content", ".clerk_m", "param", { products: itemsID });
-                            previousitemsID = itemsID;
+                        const screenWidth = window.screen.width
+                        if (screenWidth > 480) {
+                          if (JSON.stringify(previousitemsID) != JSON.stringify(itemsID)) {
+                            await Clerk('content', '.clerk_m', 'param', { products: itemsID })
+                            previousitemsID = itemsID
+                          }
+                        }
+                        if (screenWidth <= 480) {
+                          if (JSON.stringify(previousitemsID) != JSON.stringify(itemsID)) {
+                            await Clerk('content', '.clerk_mobile', 'param', { products: itemsID })
+                            previousitemsID = itemsID
+                          }
                         }
                     } catch (error) {
                         console.error(error);
@@ -45,10 +63,10 @@
                         cartFetched = false;
                     }
                 }
-                if (targetNode.className == "drawer drawer--right drawer--is-open") {
+                if (targetNode.className == sideCartOpen) {
                     clerk_element.style.opacity = 1;
                 }
-                if (targetNode.className == "drawer drawer--right") {
+                if (targetNode.className == sideCartClosed) {
                     clerk_element.style.opacity = 0;
                 }
             }

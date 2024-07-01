@@ -1,0 +1,39 @@
+<div class="clerk-mobile-wrapper">
+  <div class="clerk-headline-wrapper">
+      <h2 class="clerk-mobile-headline">{{headline}}</h2>
+  </div>
+  <div class="clerk-slider-wrapper">
+      <div class="clerk-slider">
+          {% for item in products %}
+          <div class="clerk-slider-content-mobile">
+            <!-- START PRODUCT CARD -->
+              <div class="clerk-item-wrapper">
+                <div class="clerk-side-item-image-wrapper">
+                  <img class="clerk-side-item-image" src="{{ item.image }}" alt="{{ item.name }}"/>
+                </div>
+                <div class="clerk-side-item-info-wrapper">
+                  <div>
+                    <span class="clerk-side-title">{{ item.name }}</span>
+                  </div>
+                  <div class="clerk-side-item-price-wrapper">
+                  {% if item.on_sale == true %}
+                  <span class="price on-sale">
+                    <span class="money">{{ item.price | money_eu }} {{currency_symbol}} </span>
+                  </span>
+                  <span class="compare-at">
+                      <span class="money">{{ item.list_price | money_eu }} {{currency_symbol}} </span>
+                  </span>
+                  {% else %}
+                  <span class="price">
+                    <span class="money">{{ item.price | money_eu }} {{currency_symbol}} </span>
+                  </span>
+                  {% endif %}
+                  </div>
+                </div>
+              </div>  
+            <!-- END PRODUCT CARD -->
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+</div>
