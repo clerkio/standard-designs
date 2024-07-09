@@ -48,23 +48,27 @@
             }
         });
 
-        ; (async function fetchVisitorId() {
-            try {
-                const response = await fetch(`https://api.clerk.io/v2/misc/visitor_id?key=${publicKey}&visitor=auto`)
-                const data = await response.json()
-                visitorId = data.visitor
-                Clerk('config', {
-                    visitor: visitorId,
-                })
-            } catch (error) {
-                console.error('Error:', error)
-            } finally {
-                window.Shopify.analytics.publish('clerk_pixel_context', {
-                    localeApiKey: publicKey,
-                    visitor: visitorId,
-                })
-            }
-        })()
+    ; (async function fetchVisitorId() {
+      let visitorId = window.sessionStorage.getItem('visitor_id');
+      try {
+        if (!visitorId) {
+          const response = await fetch(`https://api.clerk.io/v2/misc/visitor_id?key=${publicKey}&visitor=auto`);
+          const data = await response.json();
+          visitorId = data.visitor;
+          window.sessionStorage.setItem('visitor_id', data.visitor);
+        }
+        Clerk('config', {
+          visitor: visitorId,
+        });
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        window.Shopify.analytics.publish('clerk_pixel_context', {
+          localeApiKey: publicKey,
+          visitor: visitorId,
+        });
+      }
+    })();
     });
 </script>
 <!-- End of Clerk.io E-commerce Personalisation tool - www.clerk.io -->
