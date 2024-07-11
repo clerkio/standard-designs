@@ -1,0 +1,29 @@
+<!-- START PRODUCT CARD -->
+<div class="clerk_product-card">
+  <div class="clerk_badge-wrapper">
+    {%if item.on_sale%}
+    <span class="clerk_discount-badge">
+      Spar {{(item.list_price-item.price)/item.list_price * 100 | round}}%
+    </span>
+    {%endif%}
+  </div>
+</div>
+<div class="clerk_img-wrapper">
+  <a href="{{ item.url }}"
+    ><img class="clerk_image" src="{{ item.image }}"
+  /></a>
+</div>
+<div class="clerk_product-info">
+  <div class="clerk_title">{{ item.name }}</div>
+  <div class="clerk_price-wrapper">
+    {%if item.on_sale%}
+    <div class="clerk_list-price">
+      <del>{{ currency_symbol }} {{item.list_price}} </del>
+    </div>
+    {%endif%}
+    <div class="clerk_price">{{ currency_symbol }} {{item.price }}</div>
+  </div>
+</div>
+<!--eventually add ATC button here-->
+
+<!-- END PRODUCT CARD -->
