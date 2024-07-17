@@ -33,7 +33,6 @@
   display: flex;
   flex-direction: column;
   /*set the height of card accordingly */
-  height: 18.75rem;
 }
 .clerk_discount-badge {
   width: fit-content;
