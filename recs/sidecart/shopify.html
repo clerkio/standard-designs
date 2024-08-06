@@ -1,5 +1,5 @@
 <!-- start Clerk.io E-commerce Personalisation tool - www.clerk.io -->
-<span class="clerk_m clerk-sidecart" style="position: absolute; transform: translate(-280px, 0px); min-height: 290px; opacity: 0" id="" data-template="@cart-others-also-bought" data-products="[{% for line_item in cart.items %}{% if forloop.index0 > 0 %}, {% endif %}{{ line_item.product.id }}{% endfor %}]"></span>
+<span class="clerk_m clerk-sidecart" style="position: absolute; transform: translate(-280px, 0px); min-height: 290px; opacity: 0" data-template="@cart-others-also-bought" data-products="[{% for line_item in cart.items %}{% if forloop.index0 > 0 %}, {% endif %}{{ line_item.product.id }}{% endfor %}]"></span>
 
 <!-- START MOBILE CART -- INSERT THIS AT THE BOTTOM OF THE CART DRAWER ON MOBILE -->
 <span class="clerk_mobile clerk-sidecart" data-template="@sidecart-mobile" data-products="[{% for line_item in cart.items %}{% if forloop.index0 > 0 %}, {% endif %}{{ line_item.product.id }}{% endfor %}]"></span>
