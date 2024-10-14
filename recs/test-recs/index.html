@@ -1,0 +1,20 @@
+{% assign currency_symbol_before = "€" %}
+{% assign currency_symbol_after = "" %}
+
+{% if products.length > 7 %}
+<div class="clerk-wrapper">
+    <div class="clerk-headline-wrapper">
+        <h2 class="clerk-headline">{{headline}}</h2>
+    </div>
+    <div class="clerk-slider-wrapper">
+        <div class="clerk-slider">
+            {% for item in products %}
+            <div class="clerk-slider-content">
+                <!-- START PRODUCT CARD -->
+                <!-- END PRODUCT CARD -->
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
