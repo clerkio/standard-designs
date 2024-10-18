@@ -1,5 +1,5 @@
-{% assign currency_symbol_before = "€ " %} 
-{% assign currency_symbol_after = ""%} 
+{% assign currency_symbol_before = "" %} 
+{% assign currency_symbol_after = " kr"%} 
 {% if products.length > 7 %}
 <div class="clerk-wrapper page-width">
     <div class="clerk-headline-wrapper">
@@ -13,7 +13,7 @@
                 <div class="clerk_product-card">
                     <div class="clerk_badge-wrapper">
                         {% if item.on_sale %}
-                        <span class="clerk_discount-badge"> - {{(item.list_price-item.price)/item.list_price * 100 | round}}% </span>
+                        <span class="clerk_discount-badge"> - {{ (item.list_price-item.price)/item.list_price * 100 | round }}% </span>
                         {% endif %}
                     </div>
 
@@ -27,10 +27,10 @@
                         <div class="clerk_price-wrapper">
                             {% if item.on_sale %}
                             <div class="clerk_list-price">
-                                <del>{{ currency_symbol_before }}{{ item.list_price }}{{ currency_symbol_after }}</del>
+                                <del>{{ currency_symbol_before }}{{ item.list_price | money_eu 2 }}{{ currency_symbol_after }}</del>
                             </div>
                             {% endif %}
-                            <div class="clerk_price">{{ currency_symbol_before }}{{item.price}}{{ currency_symbol_after }}</div>
+                            <div class="clerk_price">{{ currency_symbol_before }}{{ item.price | money_eu 2 }}{{ currency_symbol_after }}</div>
                         </div>
                     </div>
                 </div>
