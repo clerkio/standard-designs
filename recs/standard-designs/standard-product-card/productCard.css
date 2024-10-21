@@ -19,14 +19,27 @@
   justify-content: space-between;
 }
 .clerk_img-wrapper {
-  display: flex;
-  flex-grow: 2;
-  padding: 10px;
+  position: relative;
+  display: block;
 }
+
+.clerk_img-wrapper:before {
+  content: "";
+  padding-top: 100%;
+  display: block;
+}
+
 .clerk_image {
+  position: absolute;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
 }
+
 .clerk_price-wrapper {
   display: flex;
   padding: 0 10px;
