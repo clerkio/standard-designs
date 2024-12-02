@@ -1,0 +1,94 @@
+<div class="os-facets">
+  <div class="os-facets-top-wrapper">
+    <div class="os-facets-close os-icon" data-clerk-bind="click:toggle_mobile_facets">
+    <button class="os-close os-icon">
+        <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="28" height="28" transform="translate(0 0.559814)" rx="50%" fill="var(--background-grey)" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.41076 8.97064C8.7362 8.6452 9.26384 8.6452 9.58928 8.97064L14 13.3814L18.4108 8.97064C18.7362 8.6452 19.2638 8.6452 19.5893 8.97064C19.9147 9.29608 19.9147 9.82371 19.5893 10.1492L15.1785 14.5599L19.5893 18.9706C19.9147 19.2961 19.9147 19.8237 19.5893 20.1492C19.2638 20.4746 18.7362 20.4746 18.4108 20.1492L14 15.7384L9.58928 20.1492C9.26384 20.4746 8.7362 20.4746 8.41076 20.1492C8.08533 19.8237 8.08533 19.2961 8.41076 18.9706L12.8215 14.5599L8.41076 10.1492C8.08533 9.82371 8.08533 9.29608 8.41076 8.97064Z" fill="#111111" />
+        </svg>
+    </button>
+    </div>
+
+    <div class="os-facets-results" id="clerk-omnisearch-facets">
+      <div class="clerk-facets">
+        {% for facet_group in facet_groups %}
+        <div class="clerk-facet-group clerk-facet-{{ facet_group.name }}" data-facet-group="{{ facet_group.name }}">
+          <div class="clerk-facet-group-title {% if is_desktop %}clerk-active{% endif %}" data-count="{{ facet_group.selected_count }}">
+            {{ facet_group.title }}
+            {% if facet_group.selected_count > 0 %}
+                <div class="os-facet-group-selected-count">{{ facet_group.selected_count }}</div>
+            {% endif %}
+          </div>
+            {% if facet_group.type == "range" %}
+            <div class="clerk-range" data-group="{{ facet_group.name}}" data-min="{{ facet_group.min }}" data-max="{{ facet_group.max }}" data-start="{{ facet_group.start }}" data-end="{{ facet_group.end }}" data-step="auto"></div>
+            {% endif %} 
+            
+            {% comment %}
+            // HIDDEN FOR NOW MAYBE USED LATER
+            {% if facet_group.facets.length > 10 %}
+            <input type="text" placeholder="{{ facets_label_search_placeholder }} {{ facet_group.title }}..." class="clerk-facet-search" />
+            {% endif %}
+            {% endcomment %}
+            
+            <div class="clerk-facet-group-facets {% if is_desktop %}clerk-active{% endif %}">
+              {% for facet in facet_group.facets %} {% if facet.value !== "false" %} {% assign facet_group_name = facet_group.name.replace(/[-_\/\.]/g, " ") %}
+              <div class="clerk-facet {% if facet.selected %}clerk-facet-selected{% endif %}{% if facet_group.name == 'variant_sizes' or facet_group.name == 'variant_colors' %} removal-marker{% endif %}{% if facet_group.name == 'product_type' %} type-tag-clerk indented{% endif %}" data-facet="{{ facet_group.name }}" data-value="{{ facet.value }}" data-min="{{ facet.min }}" data-max="{{ facet.max }}">
+                {% if facet_group.name == '_price_range' %} {% assign first_price = facet.value.split(' - ')[0] + ' ' + product_currency_symbol %} {% assign last_price = facet.value.split(' - ')[1] %} {% if last_price == '...' %} {% else %} {% assign last_price = last_price + " " + product_currency_symbol %} {% endif %}
+                <div class="clerk-facet-name">
+                  <span class="clerk-facet-name-flex"><span class="clerk-facet-name-label">{{ first_price }} - {{ last_price }}</span></span>
+                </div>
+                {% else %}
+                <div class="clerk-facet-name">
+                  <span class="clerk-facet-name-flex">
+                    <span class="clerk-facet-name-label">{{ facet.value }}</span>
+                    {% comment %}
+                    <span class="clerk-facet-name-count">({{ facet.count }})</span>
+                    {% endcomment %}
+                  </span>
+                </div>
+                {% endif %}
+              </div>
+              {% endif %} {% endfor %}
+            </div>
+          {% if facet_group.facets.length >= 8 %}
+          <div class="clerk-facet-show-more-wrapper {% if is_desktop %}clerk-active{% endif %}">
+            <span class="clerk-facet-show-more" data-clerk-bind="click:show_more">{{ facets_show_more_label }}</span>
+          </div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="os-facets-mobile-controls">
+    <div class="clerk-omnisearch-facet-full-reset os-facets-reset-mobile">
+      <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.5 1.55981V6.05981C0.5 6.61263 0.947187 7.05981 1.5 7.05981H6C6.55281 7.05981 7 6.61263 7 6.05981C7 5.507 6.55281 5.05981 6 5.05981H4.01906C4.95562 3.81919 6.43313 3.06669 8.00656 3.06669C10.7594 3.06669 13 5.30669 13 8.05981C13 10.8129 10.7597 13.0536 8.00625 13.0536C6.91625 13.0536 5.88031 12.7089 5.01 12.0554C4.56563 11.7264 3.94063 11.8133 3.60969 12.2547C3.27875 12.6972 3.3675 13.324 3.80891 13.655C5.02859 14.57 6.47641 15.0568 8.00266 15.0568C11.8594 15.0567 15 11.9161 15 8.05981C15 4.20356 11.8594 1.06294 8.00313 1.06294C5.84219 1.06294 3.81563 2.07763 2.5 3.75419V1.55981C2.5 1.007 2.05281 0.559814 1.5 0.559814C0.947187 0.559814 0.5 1.007 0.5 1.55981Z" fill="#465567" />
+      </svg>
+      <span>{{ facets_label_clear }}</span>
+    </div>
+    <div class="os-facets-close os-facets-close-mobile" data-clerk-bind="click:toggle_mobile_facets">
+      <span>{{ facets_label_close }}</span>
+    </div>
+  </div>
+</div>
+<div class="os-facets-overlay" data-clerk-bind="click:toggle_facet_overlay">
+</div>
+{% assign selected_total = 0 %} 
+{% for facet_group in facet_groups %} 
+{% assign selected_total = facet_group.selected_count + selected_total %} 
+{% endfor %}
+<div class="os-facets-toggle">
+<div data-clerk-bind="click:toggle_mobile_facets" class="os-icon os-options">
+  <svg viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 12.0098C8 12.4076 8.15804 12.7891 8.43934 13.0704C8.72064 13.3517 9.10218 13.5098 9.5 13.5098C9.89782 13.5098 10.2794 13.3517 10.5607 13.0704C10.842 12.7891 11 12.4076 11 12.0098H8ZM8 12.0098C8 11.6119 8.15804 11.2304 8.43934 10.9491C8.72064 10.6678 9.10218 10.5098 9.5 10.5098C9.89782 10.5098 10.2794 10.6678 10.5607 10.9491C10.842 11.2304 11 11.6119 11 12.0098H8ZM17 16.5098C17 16.1119 16.842 15.7304 16.5607 15.4491C16.2794 15.1678 15.8978 15.0098 15.5 15.0098C15.1022 15.0098 14.7206 15.1678 14.4393 15.4491C14.158 15.7304 14 16.1119 14 16.5098H17ZM17 16.5098C17 16.9076 16.842 17.2891 16.5607 17.5704C16.2794 17.8517 15.8978 18.0098 15.5 18.0098C15.1022 18.0098 14.7206 17.8517 14.4393 17.5704C14.158 17.2891 14 16.9076 14 16.5098H17ZM17 7.50977C17 7.11194 16.842 6.73041 16.5607 6.44911C16.2794 6.1678 15.8978 6.00977 15.5 6.00977C15.1022 6.00977 14.7206 6.1678 14.4393 6.44911C14.158 6.73041 14 7.11194 14 7.50977H17ZM17 7.50977C17 7.90759 16.842 8.28912 16.5607 8.57043C16.2794 8.85173 15.8978 9.00977 15.5 9.00977C15.1022 9.00977 14.7206 8.85173 14.4393 8.57043C14.158 8.28912 14 7.90759 14 7.50977H17ZM14 7.50977H6.5H14Z" fill="#223142" />
+    <path d="M8 12.0098H6.5M8 12.0098C8 12.4076 8.15804 12.7891 8.43934 13.0704C8.72064 13.3517 9.10218 13.5098 9.5 13.5098C9.89782 13.5098 10.2794 13.3517 10.5607 13.0704C10.842 12.7891 11 12.4076 11 12.0098M8 12.0098H11M8 12.0098C8 11.6119 8.15804 11.2304 8.43934 10.9491C8.72064 10.6678 9.10218 10.5098 9.5 10.5098C9.89782 10.5098 10.2794 10.6678 10.5607 10.9491C10.842 11.2304 11 11.6119 11 12.0098M11 12.0098H18.5M17 16.5098C17 16.1119 16.842 15.7304 16.5607 15.4491C16.2794 15.1678 15.8978 15.0098 15.5 15.0098C15.1022 15.0098 14.7206 15.1678 14.4393 15.4491C14.158 15.7304 14 16.1119 14 16.5098M17 16.5098H14M17 16.5098C17 16.9076 16.842 17.2891 16.5607 17.5704C16.2794 17.8517 15.8978 18.0098 15.5 18.0098C15.1022 18.0098 14.7206 17.8517 14.4393 17.5704C14.158 17.2891 14 16.9076 14 16.5098M17 16.5098H18.5M14 16.5098H6.5M17 7.50977C17 7.11194 16.842 6.73041 16.5607 6.44911C16.2794 6.1678 15.8978 6.00977 15.5 6.00977C15.1022 6.00977 14.7206 6.1678 14.4393 6.44911C14.158 6.73041 14 7.11194 14 7.50977M17 7.50977H14M17 7.50977C17 7.90759 16.842 8.28912 16.5607 8.57043C16.2794 8.85173 15.8978 9.00977 15.5 9.00977C15.1022 9.00977 14.7206 8.85173 14.4393 8.57043C14.158 8.28912 14 7.90759 14 7.50977M17 7.50977H18.5M14 7.50977H6.5" stroke="#223142" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+  {{ facets_label_toggle }} {% if selected_total > 0 %}({{ selected_total }}){% endif %}
+</div>
+<div data-clerk-bind="click:scroll_to_top" class="os-icon os-scrolltop">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.6568 8.96219L16.2393 10.3731L12.9843 7.10285L12.9706 20.7079L10.9706 20.7059L10.9843 7.13806L7.75404 10.3532L6.34314 8.93572L12.0132 3.29211L17.6568 8.96219Z" fill="currentColor"></path>
+  </svg>
+</div>
+</div>

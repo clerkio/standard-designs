@@ -1,0 +1,25 @@
+<div class="os-grid-item os-grid-product">
+  <a href="{{ product.url }}" class="os-link">
+    <div class="os-img-wrapper">
+      <img class="os-img" src="{{ product.image }}" />
+      {% if product.price < product.list_price %}
+      <span class="os-badge">
+        -{{ product.price | pct product.list_price }}%
+      </span>
+      {% endif %}
+    </div>
+    <div class="os-product-info">
+        <div class="os-title">{{ product.name }}</div>
+        <div class="os-pricing">
+          {% if product.price < product.list_price %}
+          <div class="os-price os-on-sale-price">{{ product.price | money_eu 2 }}{{ product_currency_symbol }}</div>
+          <div class="os-list-price">
+            {{ product.list_price | money_eu 2 }}{{ product_currency_symbol }}
+          </div>
+          {% else %}
+          <div class="os-price">{{ product.price | money_eu 2 }}{{ product_currency_symbol }}</div>
+          {% endif %}
+        </div>
+    </div>
+  </a>
+</div>

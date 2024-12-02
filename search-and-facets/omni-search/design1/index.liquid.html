@@ -1,0 +1,129 @@
+<div id="clerk-omni-search-display" class="os-display">
+
+  <!-- Logo -->
+	{% assign os_brand_logo = "" %}
+  {% assign os_autoload = false %}
+	<!-- Tabs -->
+  {% assign tab_label_products = "Products" %} 
+  {% assign tab_label_categories = "Categories" %} 
+  {% assign tab_label_pages = "Pages" %}
+  
+  <!-- Results -->
+  {% assign zero__exact_matches_for = "No exact results for" %}
+  {% assign but_we_found_some_alternatives = "But here are some closely related products:" %}
+  {% assign results_label_count = "results" %} 
+  {% assign results_label_load = "Load more" %} 
+  {% assign search_label_placeholder = "Search here..." %} 
+  {% assign translate_no_results = "No results for " %}
+  
+  <!-- Facets -->
+  {% assign facets_show_more_label = "Show more" %}
+  {% assign facets_hide_label = "Hide filters" %}
+  {% assign facets_show_text = "More filters" %} 
+  {% assign facets_hide_text = "Hide filters" %} 
+  {% assign facets_label_search_placeholder = "Search" %} 
+  {% assign facets_label_clear = "Clear all filters" %} 
+  {% assign facets_label_close = "Close" %} 
+  {% assign facets_label_toggle = "Filter" %} 
+  {% assign facets_label_snack_clear = "Clear all" %}
+  
+  <!-- Sorting -->
+  {% assign results_sort_label = "Sort by:" %} 
+  {% assign results_sort_label_default_default = "Relevance" %} 
+  {% assign results_sort_label_name_asc = "Name (A-Z)" %} 
+  {% assign results_sort_label_name_desc = "Name (Z-A)" %} 
+  {% assign results_sort_label_price_asc = "Price (low to high)" %} 
+  {% assign results_sort_label_price_desc = "Price (high to low)" %} 
+  {% assign results_sort_label_age_asc = "Newest" %} 
+  {% assign results_sort_label_age_desc = "Oldest" %}
+  
+	<!-- Product Card -->
+	{% assign product_currency_iso = "DKK" %} 
+  {% assign product_currency_symbol = " kr" %} 
+
+  {{@250595 - TopBarSearchForm}}
+  <div id="clerk-omnisearch-content" class="os-body" data-clerk-bind-once="scroll:scroll_pos_reset">
+    <div class="os-tabs">
+      <div
+        class="os-tab os-products clerk-active"
+        data-result-type="products"
+        data-clerk-bind="click:toggle_active_tab"
+      >
+        {{ tab_label_products }}
+      </div>
+      {% if categories.length > 0%}
+      <div
+        class="os-tab os-categories"
+        data-result-type="categories"
+        data-clerk-bind="click:toggle_active_tab"
+      >
+        {{ tab_label_categories }}
+      </div>
+      {%endif%}
+      {%if pages.length > 0%}
+      <div
+        class="os-tab os-pages"
+        data-result-type="pages"
+        data-clerk-bind="click:toggle_active_tab"
+      >
+        {{ tab_label_pages }}
+      </div>
+      {%endif%}
+    </div>
+
+    <div class="os-results" id="clerk-omni-search-results">
+      {% if products %}
+      {{@250596 - ProductsSortingControls}}
+      <div class="os-grid os-products">
+        {% for product in products %}
+          {{@250597 - OsProductCard}}
+        {% endfor %}
+      </div>
+      {% if results.products.estimated_total_count > products.length %}
+      <div class="os-button os-products load-more" onclick="Clerk('content', '#{{ content.id }}', 'more', 20);">{{ results_label_load }}</div>
+      {% endif %} 
+      {% endif %} 
+      <div class="os-flex-wrapper">
+        {% if categories %}
+        <div class="os-list os-categories">
+          {% if categories.length > 0 %}
+          <div class="os-title">{{ tab_label_categories }}</div>
+          {% endif %}
+          <div class="os-link-wrapper">
+            {% for category in categories %}
+            <a href="{{ category.url }}" class="os-link">
+              <div class="os-list-item os-item-category">{{ category.name }}</div>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %} 
+        {% if pages %}
+        <div class="os-list os-pages">
+          {% if pages.length > 0 %}
+          <div class="os-title">{{ tab_label_pages }}</div>
+          {% endif %}
+            <div class="os-link-wrapper">
+              {% for page in pages %}
+              <a href="{{ page.url }}" class="os-link">
+                <div class="os-list-item os-item-page">{{ page.title }}</div>
+              </a>
+              {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        {% if results.products.estimated_total_count > 12 %}
+        <div data-clerk-bind="click:scroll_to_top" class="os-icon os-scrolltop os-scrollbody">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.6568 8.96219L16.2393 10.3731L12.9843 7.10285L12.9706 20.7079L10.9706 20.7059L10.9843 7.13806L7.75404 10.3532L6.34314 8.93572L12.0132 3.29211L17.6568 8.96219Z" fill="currentColor"></path>
+          </svg>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {{@250598 - FacetsHTML}}
+  </div>
+{{@250599 - PoweredByFooter}}
+</div>
+{{@250600 - FacetJSWrapper}}
+{{@250601 - UtilityJS}}

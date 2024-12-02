@@ -1,0 +1,139 @@
+<script>
+  class ClerkOmniSearchFacets {
+    constructor() {
+      this.selectors = {
+        facets: '.clerk-facets',
+        selected: '.os-facet-selected',
+        search: '.clerk-facet-search-wrap',
+        range: '.os-facet-range',
+        group: '.clerk-facet-group',
+        groupTitle: '.clerk-facet-group-title',
+        groupWrapper: '.clerk-facet-group-facets',
+        mobileToggle: '.os-facet-mobile-toggle',
+        facetToggler: '.clerk-facet-show-more-wrapper'
+      }
+      this.id = `#{{ content.id }}`;
+      this.state = {
+        show: false,
+        groups: {}
+      };
+    }
+    run = () => {
+      this.bindState()
+      if (typeof Clerk == 'function') {
+        Clerk('on', 'rendered', `${this.id}`, this.bindState)
+      }
+    }
+    bindState = () => {
+      const title_els = this.nodes(document, this.selectors.groupTitle);
+      for (let i = 0; i < title_els.length; i++) {
+        const el = title_els[i];
+        const pel = el.parentNode;
+        const pgel = el.closest(this.selectors.group);
+        const fcSearch = this.nodes(pel, this.selectors.search, true);
+        const fcRange = this.nodes(pel, this.selectors.range, true);
+        const fcGroup = this.nodes(pel, this.selectors.groupWrapper, true);
+        const facetToggler = this.nodes(pel, this.selectors.facetToggler, true);
+        const groupKey = pel?.dataset?.facetGroup;
+        if(groupKey in this.state.groups && this.state.groups[groupKey]){
+          el.classList.add("clerk-active");
+          fcGroup.classList.add("clerk-active");
+          if(facetToggler) {
+            facetToggler.classList.add("clerk-active");
+          }
+          fcGroup.removeAttribute("style");
+          if(fcSearch){fcSearch.style.display = 'inline-block'};
+          if(fcRange){fcRange.style.display = 'block'};
+        }
+        if(groupKey in this.state.groups && !this.state.groups[groupKey]){
+          el.classList.remove("clerk-active");
+          fcGroup.classList.remove("clerk-active");
+          if(facetToggler) {
+            facetToggler.classList.remove("clerk-active");
+          }
+          if(fcSearch){fcSearch.style.display = 'none'};
+          if(fcRange){fcRange.style.display = 'none'};
+        }
+        if(fcGroup.clientHeight == 0 && fcGroup.classList.contains('clerk-active')){
+            setTimeout(() => {
+              fcGroup.style.height = `${fcGroup.clientHeight}px`;
+            }, 200);
+        } else {
+          fcGroup.style.height = `${fcGroup.clientHeight}px`;
+        }
+        el.addEventListener('click', this.fold);
+      }
+    }
+  
+    fold = (event) => {
+      const el = event.target;
+      const pel = event.target.parentNode;
+      const groupKey = pel?.dataset?.facetGroup;
+      const fcSearch = this.nodes(pel, this.selectors.search, true);
+      const fcRange = this.nodes(pel, this.selectors.range, true);
+      const fcGroup = this.nodes(pel, this.selectors.groupWrapper, true);
+      const facetToggler = this.nodes(pel, this.selectors.facetToggler, true);
+      if (!fcGroup) {
+        return
+      }
+      el.classList.toggle('clerk-active');
+      if (fcGroup.classList.contains('clerk-active')) {
+        this.state.groups[groupKey] = false;
+        if(fcSearch){fcSearch.style.display = 'none'};
+        if(fcRange){fcRange.style.display = 'none'};
+        fcGroup.style.height = '0px';
+        fcGroup.addEventListener('transitionend', () => {
+          fcGroup.classList.remove('clerk-active');
+          if(facetToggler) {
+          facetToggler.classList.remove('clerk-active');
+          }
+        }, {
+          once: true
+        });
+      } else {
+        this.state.groups[groupKey] = true;
+        fcGroup.classList.add('clerk-active');
+        if(facetToggler) {
+          facetToggler.classList.add('clerk-active');
+        }
+        fcGroup.style.height = 'auto';
+        if(fcSearch){fcSearch.style.display = 'inline-block'};
+        if(fcRange){fcRange.style.display = 'block'};
+        const h = `${fcGroup.clientHeight}px`;
+        fcGroup.style.height = '0px';
+        setTimeout(() => {
+          fcGroup.style.height = h;
+        }, 0);
+      }
+    }
+    nodes = (haystack, selector, first = false) => {
+      if (!first) {
+        return haystack.querySelectorAll(selector);
+      }
+      return haystack.querySelector(selector);
+    }
+    toggleMobile = () => {
+      const ns = this.nodes(document, this.selectors.facets, true);
+      if (!ns) {
+        return
+      }
+      const st = ns.style.display;
+      if (['node', ''].includes(st)) {
+        this.state.show = true;
+        ns.style.display = 'block';
+      } else {
+        this.state.show = false;
+        ns.style.display = 'none';
+      }
+    }
+    resetGroup = (element, event) => {
+      event.preventDefault();
+      const els = this.nodes(element.closest(this.selectors.groupWrapper), this.selectors.selected)
+      for (let i = 0; i < els.length; i++) {
+        els[i].click();
+      }
+    }
+  }
+  const clerkFacetsWrapper = new ClerkOmniSearchFacets();
+  clerkFacetsWrapper.run();
+  </script>

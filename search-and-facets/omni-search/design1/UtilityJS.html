@@ -1,0 +1,230 @@
+<script>
+  class ClerkOmniSearchUtility {
+    constructor() {
+      this.selectors = {
+        clear: 'os-clear',
+        occult: 'os-occult',
+        results: 'os-results',
+        facets: 'os-facets',
+        overlay: 'os-facets-overlay',
+        show: 'os-show',
+        sort: 'os-sort',
+        tab: 'os-tab',
+        body: 'os-body',
+        showMoreBtn: 'clerk-facet-show-more',
+        facetWrap: 'facet_wrap',
+        facetShow: 'facet_show'
+      }
+      this.id = `#{{ content.id }}`;
+      this.opts = {}
+      this.state = {
+        loading: false,
+        sort: null,
+        showFacets: false,
+        showClear: false,
+        activeTab: "products",
+        scrollPos: 0,
+        facetHidden: false
+      }
+      this.bindMap = {
+        "toggle_active_tab": this.toggleActiveTab,
+        "sort_products": this.sortProducts,
+        "toggle_mobile_facets": this.toggleMobileFacets,
+        "clear_query": this.clearQuery,
+        "show_clear_query": this.showClearQuery,
+        "scroll_pos_reset": this.recordScrollPos,
+        "scroll_to_top": this.scrollToTop,
+        "show_more": this.showMore,
+        "toggle_facet_overlay": this.toggleOverlay
+      }
+    }
+  
+    run = (opts = null) => {
+      if(opts){
+        this.opts = opts
+      }
+      this.bindState();
+      this.bindStateOnce();
+      if (typeof Clerk == 'function') {
+        Clerk('on', 'rendered', `${this.id}`, this.bindState)
+      }
+    }
+  
+    bindStateOnce = () => {
+      const bindings = document.querySelectorAll('[data-clerk-bind-once]');
+      for(let i=0;i<bindings.length;i++){
+        const b = bindings[i];
+        const info = b.dataset.clerkBindOnce.split(':');
+        b.addEventListener(info[0], this.bindMap[info[1]]);
+      }
+    }
+  
+    bindState = () => {
+      const bindings = document.querySelectorAll('[data-clerk-bind]');
+      for(let i=0;i<bindings.length;i++){
+        const b = bindings[i];
+        const info = b.dataset.clerkBind.split(':');
+        b.addEventListener(info[0], this.bindMap[info[1]]);
+      }
+      const fc = document.querySelector(`.${this.selectors.facets}`);
+      if(fc && this.state.showFacets){
+          fc.classList.add(this.selectors.show);
+          fc.style.transition = "none";
+          setTimeout(() => {
+              fc.removeAttribute("style");
+          }, 1);
+      }
+      const fo = document.querySelector(`.${this.selectors.overlay}`);
+      if(fo && this.state.showFacets){
+          fo.classList.add(this.selectors.show);
+          fo.style.transition = "none";
+          setTimeout(() => {
+              fo.removeAttribute("style");
+          }, 1);
+      }
+      const t = document.querySelector(`.${this.selectors.results}`);
+      if (t) {
+        t.dataset.resultType = this.state.activeTab;
+      }
+      const s = document.querySelectorAll(`.${this.selectors.sort}`);
+      for(let i=0;i<s.length;i++){
+          const se = s[i];
+          if(se && se?.dataset?.selectedSort){
+              se.value = se.dataset.selectedSort;
+          }
+      }
+      if(this.state.scrollPos){
+          const mb = document.querySelector(`.${this.selectors.body}`);
+          if(mb){
+              mb.scrollTop = this.state.scrollPos;
+          }
+      }
+      this.state.loading = false;
+    }
+  
+    recordScrollPos = (event) => {
+      this.state.scrollPos = event.target.scrollTop;
+      if(this.opts?.autoload?.products && Math.ceil(event.target.scrollHeight - event.target.scrollTop) === event.target.clientHeight && !this.state.loading) {
+        this.state.loading = true;
+        Clerk('content', this.id, 'more', 20);
+      }
+    }
+    scrollToTop = (event) => {
+      const mb = document.querySelector(`.${this.selectors.body}`)
+      if(mb){
+        mb.scrollTo({top: 0, behavior: 'smooth'});
+      }
+    }
+
+    showMore = (event) => {
+      const el = event.target;
+      const showMoreLabel = "{{ facets_show_more_label }}";
+      const hideFacets = "{{ facets_hide_label }}";
+      const fb = el.closest('.clerk-facet-group').querySelector('.clerk-facet-group-facets');
+      
+      if (!this.state.facetHiddenMap) {
+        this.state.facetHiddenMap = new Map();
+      }
+      
+      if(fb) {
+        let isFacetHidden = this.state.facetHiddenMap.get(fb) ?? true;
+  
+        if (isFacetHidden) {
+          el.innerText = hideFacets;
+          fb.classList.add('facets-expanded');
+          fb.style.maxHeight = "100%";
+          fb.style.height = "100%";
+          fb.style.overflow = "visible";
+        } else {
+          el.innerText = showMoreLabel;
+          const h = `${fb.clientHeight}px`;
+          fb.removeAttribute('style');
+          setTimeout(() => {
+          fb.style.height = h;
+        }, 0);
+          fb.classList.remove('facets-expanded');
+        }
+  
+        this.state.facetHiddenMap.set(fb, !isFacetHidden);
+      }
+    }
+  
+    clearQuery = (event) => {
+      const el = event.target;
+      const inp = el.closest('form').querySelector('input[type=text]');
+      if (!inp) { return }
+      this.state.showClear = false;
+      inp.value = '';
+      el.closest(`.${this.selectors.clear}`)?.classList.toggle(this.selectors.occult);
+      setTimeout(() => {
+        inp.focus();
+        inp.select();
+        inp.setSelectionRange(-1, -1);
+      }, 1);
+    }
+    showClearQuery = (event) => {
+      const el = event.target;
+      this.state.showClear = !!el.value;
+      if (this.state.showClear) {
+        el.closest('form').querySelector(`.${this.selectors.clear}`).classList.remove(this.selectors.occult);
+      } else {
+        el.closest('form').querySelector(`.${this.selectors.clear}`).classList.add(this.selectors.occult);
+      }
+    }
+    toggleActiveTab = (event) => {
+      const tcls = document.querySelectorAll(`.${this.selectors.tab}`);
+      tcls.forEach(tab =>  {
+          tab.classList.remove('clerk-active');
+      });
+      event.target.classList.add('clerk-active');
+      const cl = event.target.dataset?.resultType;
+      const t = document.querySelector(`.${this.selectors.results}`);
+      if (t) {
+        t.dataset.resultType = cl;
+        this.state.activeTab = cl;
+      }
+    }
+    toggleMobileFacets = () => {
+      const fc = document.querySelector(`.${this.selectors.facets}`);
+      const fo = document.querySelector(`.${this.selectors.overlay}`);
+      if (fc) {
+          if(fc.classList.contains(this.selectors.show) && fo.classList.contains(this.selectors.show)){
+              this.state.showFacets = false;
+          } else {
+              this.state.showFacets = true;
+          }
+        fc.classList.toggle(this.selectors.show);
+        fo.classList.toggle(this.selectors.show);
+      }
+    }
+    toggleOverlay = (event) => {
+      const fc = document.querySelector(`.${this.selectors.facets}`);
+      const fo = document.querySelector(`.${this.selectors.overlay}`);
+      if (fc) {
+          if(fc.classList.contains(this.selectors.show) && fo.classList.contains(this.selectors.show)){
+              this.state.showFacets = false;
+          } else {
+              this.state.showFacets = true;
+          }
+        fc.classList.toggle(this.selectors.show);
+        fo.classList.toggle(this.selectors.show);
+      }
+    }
+    sortProducts = (event) => {
+      const opts = event.target.options;
+      const selt = event.target.selectedIndex;
+      if (typeof window.Clerk == 'function' && opts.length > selt) {
+        const orderBy = opts[selt].value == "null" ? null : opts[selt].value.replace("+", "");
+        const order = orderBy == null ? null : opts[selt].value.startsWith("+") ? 'asc' : 'desc';
+        Clerk('content', this.id, 'param', {
+          orderby: orderBy,
+          order: order
+        });
+        this.state.sort = opts[selt].value;
+      }
+    }
+  }
+  const clerkUtilityWrapper = new ClerkOmniSearchUtility();
+  const os_autoload = {{ os_autoload }}
+  clerkUtilityWrapper.run( { autoload: { products: os_autoload } } );
+  </script>
