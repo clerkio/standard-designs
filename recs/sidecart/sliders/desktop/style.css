@@ -25,10 +25,6 @@
 	height: 100vh;
 }
 
-.clerk-sidebar-alternate-query {
-	padding: 1em;
-}
-
 /* Grid layout */
 .clerk-sidebar-grid {
 	display: flex;
