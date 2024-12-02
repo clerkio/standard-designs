@@ -1,5 +1,5 @@
 <div class="clerk-sidebar">
-    <div class="clerk-sidebar-title">{{headline}}</div>
+    <div class="clerk-sidebar-title">{{ headline }}</div>
     <div class="clerk-sidebar-grid">
         <div class="clerk-sidebar-col">
             <div class="clerk-sidebar-products">
@@ -14,7 +14,7 @@
                     </div>
                     <div class="clerk-sidebar-info-wrapper">
                         <div class="clerk-sidebar-product-name">
-                            <a href="{{ item.url }}">{{item.name}}</a>
+                            <a href="{{ item.url }}">{{ item.name }}</a>
                         </div>
                         <div class="clerk-sidebar-price-wrapper">
                             {% if item.on_sale == true %}
@@ -28,7 +28,7 @@
                         </div>
                     </div>
                 </div>
-                {% endif %} {% endfor %}
+                {% endfor %}
             </div>
         </div>
     </div>
