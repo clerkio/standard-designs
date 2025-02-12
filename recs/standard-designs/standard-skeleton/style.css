@@ -5,27 +5,27 @@
 
 .clerk-slider {
 	display: flex;
-  }
+}
 
 /* 
 * This will determine  how many products are being shown in the slider
 */
+
 .clerk-slider-item {
 	flex: 1 0 calc(25% - 0px);
-  }
-  
-  @media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 768px) {
 	.clerk-slider-item {
-	  flex: 1 0 calc(50% - 0px);
+		flex: 1 0 calc(50% - 0px);
 	}
-  }
-  
-  @media screen and (max-width: 480px) {
+}
+
+@media screen and (max-width: 480px) {
 	.clerk-slider-item {
-	  flex: 1 0 calc(50% - 0px);
+		flex: 1 0 calc(50% - 0px);
 	}
-  }
-  
+}
 
 /*********************************************
 *
