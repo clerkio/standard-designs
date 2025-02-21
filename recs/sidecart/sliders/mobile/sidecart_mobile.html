@@ -4,28 +4,28 @@
   </div>
   <div class="clerk-slider-wrapper">
       <div class="clerk-slider">
-          {% for item in products %}
+          {% for product in products %}
           <div class="clerk-slider-content-mobile">
             <!-- START PRODUCT CARD -->
               <div class="clerk-item-wrapper">
                 <div class="clerk-side-item-image-wrapper">
-                  <img class="clerk-side-item-image" src="{{ item.image }}" alt="{{ item.name }}"/>
+                  <img class="clerk-side-item-image" src="{{ product.image }}" alt="{{ product.name }}"/>
                 </div>
                 <div class="clerk-side-item-info-wrapper">
                   <div>
-                    <span class="clerk-side-title">{{ item.name }}</span>
+                    <span class="clerk-side-title">{{ product.name }}</span>
                   </div>
                   <div class="clerk-side-item-price-wrapper">
-                  {% if item.on_sale == true %}
+                  {% if product.on_sale == true %}
                   <span class="price on-sale">
-                    <span class="money">{{ item.price | money_eu }} {{currency_symbol}} </span>
+                    <span class="money">{{ product.price | money_eu }} {{currency_symbol}} </span>
                   </span>
                   <span class="compare-at">
-                      <span class="money">{{ item.list_price | money_eu }} {{currency_symbol}} </span>
+                      <span class="money">{{ product.list_price | money_eu }} {{currency_symbol}} </span>
                   </span>
                   {% else %}
                   <span class="price">
-                    <span class="money">{{ item.price | money_eu }} {{currency_symbol}} </span>
+                    <span class="money">{{ product.price | money_eu }} {{currency_symbol}} </span>
                   </span>
                   {% endif %}
                   </div>

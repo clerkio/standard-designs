@@ -19,22 +19,22 @@
         <span class="clerk-instant-search-headline">{{translate_products}}</span>
         <hr>
         <div class="clerk-instant-search-products" style="margin-bottom: 1rem">
-            {% for item in products %}
+            {% for product in products %}
             {% if loop.index0 < upper_limit %} <div class="clerk-instant-search-item">
-                <a href="{{item.url}}" class="clerk-instant-search-image-wrapper">
-                    <img class="clerk-instant-search-image" src="{{item.image}}" />
+                <a href="{{product.url}}" class="clerk-instant-search-image-wrapper">
+                    <img class="clerk-instant-search-image" src="{{product.image}}" />
                 </a>
                 <div class="clerk-instant-search-product-details">
-                    <a class="clerk-instant-search-product-title" href="{{item.url}}">{{item.name}}</a>
-                    <a class="clerk-instant-search-brand product-vendor" href="{{item.url}}">{{item.vendor}}</a>
+                    <a class="clerk-instant-search-product-title" href="{{product.url}}">{{product.name}}</a>
+                    <a class="clerk-instant-search-brand product-vendor" href="{{product.url}}">{{product.vendor}}</a>
                     <div class="clerk-instant-search-price-wrapper ">
                         <span
-                            class="clerk-instant-search-price {% if item.on_sale %} clerk-instant-search-on-sale-price {% endif %}">
-                            {{currency_symbol_before}}{{item.price | money_eu}} {{currency_symbol_after}}
+                            class="clerk-instant-search-price {% if product.on_sale %} clerk-instant-search-on-sale-price {% endif %}">
+                            {{currency_symbol_before}}{{product.price | money_eu}} {{currency_symbol_after}}
                         </span>
-                        {% if item.on_sale%}
+                        {% if product.on_sale%}
                         <span class="clerk-instant-search-price clerk-instant-search-price-old">
-                            {{currency_symbol_before}}{{item.list_price | money_eu}} {{currency_symbol_after}}
+                            {{currency_symbol_before}}{{product.list_price | money_eu}} {{currency_symbol_after}}
                         </span>
                         {% endif %}
                     </div>

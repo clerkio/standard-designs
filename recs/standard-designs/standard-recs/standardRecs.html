@@ -7,30 +7,30 @@
     </div>
     <div class="clerk-slider-wrapper">
         <div class="clerk-slider">
-            {% for item in products %}
+            {% for product in products %}
             <div class="clerk-slider-content">
                 <!-- START PRODUCT CARD -->
                 <div class="clerk_product-card">
                     <div class="clerk_badge-wrapper">
-                        {% if item.on_sale %}
-                        <span class="clerk_discount-badge"> - {{ (item.list_price-item.price)/item.list_price * 100 | round }}% </span>
+                        {% if product.on_sale %}
+                        <span class="clerk_discount-badge"> - {{ (product.list_price-product.price)/product.list_price * 100 | round }}% </span>
                         {% endif %}
                     </div>
 
                     <div class="clerk_img-wrapper">
-                        <a href="{{ item.url }}"><img class="clerk_image" src="{{ item.image }}" /></a>
+                        <a href="{{ product.url }}"><img class="clerk_image" src="{{ product.image }}" /></a>
                     </div>
                     <div class="clerk_product-info">
                         <div class="clerk_title">
-                            <a href="{{ item.url }}">{{ item.name }}</a>
+                            <a href="{{ product.url }}">{{ product.name }}</a>
                         </div>
                         <div class="clerk_price-wrapper">
-                            {% if item.on_sale %}
+                            {% if product.on_sale %}
                             <div class="clerk_list-price">
-                                <del>{{ currency_symbol_before }}{{ item.list_price | money_eu 2 }}{{ currency_symbol_after }}</del>
+                                <del>{{ currency_symbol_before }}{{ product.list_price | money_eu 2 }}{{ currency_symbol_after }}</del>
                             </div>
                             {% endif %}
-                            <div class="clerk_price">{{ currency_symbol_before }}{{ item.price | money_eu 2 }}{{ currency_symbol_after }}</div>
+                            <div class="clerk_price">{{ currency_symbol_before }}{{ product.price | money_eu 2 }}{{ currency_symbol_after }}</div>
                         </div>
                     </div>
                 </div>

@@ -3,27 +3,27 @@
     <div class="clerk-sidebar-grid">
         <div class="clerk-sidebar-col">
             <div class="clerk-sidebar-products">
-                {% for item in products %}
+                {% for product in products %}
                 <div class="clerk-sidebar-product">
                     <div class="clerk-sidebar-image-wrapper">
-                        <a class="clerk_link" href="{{ item.url }}">
+                        <a class="clerk_link" href="{{ product.url }}">
                             <div class="clerk_image_wrapper">
-                                <img class="clerk_product_image" loading="lazy" src="{{ item.images }}" />
+                                <img class="clerk_product_image" loading="lazy" src="{{ product.images }}" />
                             </div>
                         </a>
                     </div>
                     <div class="clerk-sidebar-info-wrapper">
                         <div class="clerk-sidebar-product-name">
-                            <a href="{{ item.url }}">{{ item.name }}</a>
+                            <a href="{{ product.url }}">{{ product.name }}</a>
                         </div>
                         <div class="clerk-sidebar-price-wrapper">
-                            {% if item.on_sale == true %}
+                            {% if product.on_sale == true %}
                             <div class="clerk-sidebar-normal-price">
-                                <span class="clerk-price">{{ currency_symbol }} {{ item.list_price | currency_converter | money_eu }}</span>
+                                <span class="clerk-price">{{ currency_symbol }} {{ product.list_price | currency_converter | money_eu }}</span>
                             </div>
                             {% endif %}
                             <div class="clerk-sidebar-on_sale-price">
-                                <span class="clerk-price">{{ currency_symbol }} {{ item.price | currency_converter | money_eu }}</span>
+                                <span class="clerk-price">{{ currency_symbol }} {{ product.price | currency_converter | money_eu }}</span>
                             </div>
                         </div>
                     </div>
